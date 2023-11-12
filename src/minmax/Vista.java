@@ -9,7 +9,7 @@ package minmax;
 
 /**
  *
- * @author Admin
+ * @author Admin 2
  */
 public class Vista extends javax.swing.JFrame {
 
