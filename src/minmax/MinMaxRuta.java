@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import mapa.rutas.Graph;
-
 public class MinMaxRuta {
 	int distancia;
 	int distIni;

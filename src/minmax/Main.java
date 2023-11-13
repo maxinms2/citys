@@ -7,8 +7,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
-import mapa.rutas.Graph;
-
 
 public class Main {
 	private GraphUtils graphUtils;
@@ -16,6 +14,7 @@ public class Main {
 	private List<String> longestPath;
 	private int shortestDistance;
 	private int longestDistance;
+	private Graph graph;
 	public Main() {
 		this.graphUtils = new GraphUtilsImpl();
 	}
@@ -26,7 +25,7 @@ public class Main {
 	}
 	
 	public void getPhats(String startCity,String endCity) {
-		Graph graph = graphUtils.getGraph();
+		graph = graphUtils.getGraph();
 
 		/*Scanner scanner = new Scanner(System.in);
 		System.out.print("Ingrese la ciudad de partida: ");
@@ -76,6 +75,12 @@ public class Main {
 
 	public int getLongestDistance() {
 		return longestDistance;
-	}	
+	}
+
+	public Graph getGraph() {
+		return graph;
+	}
+	
+	
 
 }
