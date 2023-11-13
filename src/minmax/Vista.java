@@ -5,7 +5,6 @@
  */
 package minmax;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -13,7 +12,7 @@ import java.util.List;
 
 /**
  *
- * @author Admin cccccc
+ * @author Admin
  */
 public class Vista extends javax.swing.JFrame {
 
@@ -22,6 +21,8 @@ public class Vista extends javax.swing.JFrame {
 	 */
 	List<City> rutaShort = new ArrayList<>();
 	List<City> rutaLong = new ArrayList<>();
+	Boolean ejecutando = false;
+
 	public Vista() {
 		initComponents();
 	}
@@ -42,11 +43,14 @@ public class Vista extends javax.swing.JFrame {
 		jLabel2 = new javax.swing.JLabel();
 		jLabel1 = new javax.swing.JLabel();
 		jComboBox2 = new javax.swing.JComboBox<>();
+
 		jComboBox3 = new javax.swing.JComboBox<>();
+		jComboBox3.setEnabled(false);
 		jLabel4 = new javax.swing.JLabel();
 		jLabel3 = new javax.swing.JLabel();
 		jLabel5 = new javax.swing.JLabel();
 		jButton1 = new javax.swing.JButton();
+		jButton2 = new javax.swing.JButton();
 		jTextField1 = new javax.swing.JTextField();
 		jTextField2 = new javax.swing.JTextField();
 		jTextField3 = new javax.swing.JTextField();
@@ -71,6 +75,8 @@ public class Vista extends javax.swing.JFrame {
 		jComboBox2.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				jComboBox2ActionPerformed(evt);
+				System.out.println("holis" + jComboBox2.getSelectedIndex());
+				jComboBox3.setSelectedIndex(jComboBox2.getSelectedIndex());
 			}
 		});
 
@@ -90,40 +96,54 @@ public class Vista extends javax.swing.JFrame {
 		jLabel3.setText("Ciudad de salida");
 
 		jLabel5.setText("Ciudad de destino");
+		jTextField2.setText("");
+		jTextField1.setText("");
+		jTextField3.setText("");
+		jTextField4.setText("");
 
 		jButton1.setText("Calcular ruta y km recorridos");
 		jButton1.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				jButton1ActionPerformed(evt);
-				System.out.println("probando");
-				Main mainRut = new Main();
-				System.out.println(jComboBox2.getSelectedItem().toString());
-				System.out.println(jComboBox3.getSelectedItem().toString());
-				String ciudadIni = jComboBox2.getSelectedItem().toString();
-				String ciudadFin = jComboBox3.getSelectedItem().toString();
-				mainRut.getPhats(ciudadIni, ciudadFin);
-				System.out.println(mainRut.getShortestPath());
-				jTextField3.setText(mainRut.getShortestPath().toString());
-				jTextField2.setText("" + mainRut.getShortestDistance());
-				jTextField1.setText(mainRut.getLongestPath().toString());
-				jTextField4.setText("" + mainRut.getLongestDistance());
-				for (String city : mainRut.getShortestPath()) {
-					rutaShort.add(mainRut.getGraph().getCity(city));
+				if (!ejecutando) {
+					ejecutando = true;
+					jButton1.setEnabled(false);
+					System.out.println("probando");
+					Main mainRut = new Main();
+					System.out.println(jComboBox2.getSelectedItem().toString());
+					System.out.println(jComboBox3.getSelectedItem().toString());
+					String ciudadIni = jComboBox2.getSelectedItem().toString();
+					String ciudadFin = jComboBox3.getSelectedItem().toString();
+					mainRut.getPhats(ciudadIni, ciudadFin);
+					System.out.println(mainRut.getShortestPath());
+					jTextField3.setText(mainRut.getShortestPath().toString());
+					jTextField2.setText("" + mainRut.getShortestDistance());
+					jTextField1.setText(mainRut.getLongestPath().toString());
+					jTextField4.setText("" + mainRut.getLongestDistance());
+					for (String city : mainRut.getShortestPath()) {
+						rutaShort.add(mainRut.getGraph().getCity(city));
+					}
+					for (String city : mainRut.getLongestPath()) {
+						rutaLong.add(mainRut.getGraph().getCity(city));
+					}
+					repaint();
+					// ejecutando=true;
+
+				}else {
+					jTextField2.setText("");
+					jTextField1.setText("");
+					jTextField3.setText("");
+					jTextField4.setText("");
+					jButton1.setText("Calcular ruta y km recorridos");
+					rutaShort = new ArrayList<>();
+					rutaLong = new ArrayList<>();
+					repaint();
+					ejecutando=false;
 				}
-				for (String city : mainRut.getLongestPath()) {
-					rutaLong.add(mainRut.getGraph().getCity(city));
-				}
-				repaint();
 			}
 		});
 
-		jTextField1.setText("jTextField1");
 
-		jTextField2.setText("jTextField2");
-
-		jTextField3.setText("jTextField1");
-
-		jTextField4.setText("jTextField2");
 
 		jLabel6.setText("Ruta mas corta");
 
@@ -340,6 +360,7 @@ public class Vista extends javax.swing.JFrame {
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private javax.swing.JButton jButton1;
+	private javax.swing.JButton jButton2;
 	private javax.swing.JComboBox<String> jComboBox2;
 	private javax.swing.JComboBox<String> jComboBox3;
 	private javax.swing.JLabel jLabel1;
@@ -362,42 +383,46 @@ public class Vista extends javax.swing.JFrame {
 
 	public void paint(Graphics g) {
 		super.paint(g);
-		
-	    int width = 10;
 
-		if (!rutaShort.isEmpty()) {
-		    g.setColor(Color.blue);
-		    g.drawOval(rutaShort.get(0).getX()-5, rutaShort.get(0).getY()-5, 10, 10);
-			g.setColor(Color.red);
-			for (int i = 0; i < rutaShort.size()-1; i++) {
-				g.drawLine(rutaShort.get(i).getX(), rutaShort.get(i).getY(), rutaShort.get(i + 1).getX(),
-						rutaShort.get(i + 1).getY());
-				g.drawLine(rutaShort.get(i).getX()+1, rutaShort.get(i).getY(), rutaShort.get(i + 1).getX()+1,
-						rutaShort.get(i + 1).getY());
-				try {
-					Thread.sleep(500);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+		int width = 10;
+		if (ejecutando) {
+			if (!rutaShort.isEmpty()) {
+				g.setColor(Color.blue);
+				g.drawOval(rutaShort.get(0).getX() - 5, rutaShort.get(0).getY() - 5, 10, 10);
+				g.setColor(Color.red);
+				for (int i = 0; i < rutaShort.size() - 1; i++) {
+					g.drawLine(rutaShort.get(i).getX(), rutaShort.get(i).getY(), rutaShort.get(i + 1).getX(),
+							rutaShort.get(i + 1).getY());
+					g.drawLine(rutaShort.get(i).getX() + 1, rutaShort.get(i).getY(), rutaShort.get(i + 1).getX() + 1,
+							rutaShort.get(i + 1).getY());
+					try {
+						Thread.sleep(500);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			}
-		}
-		if (!rutaLong.isEmpty()) {
-		    g.setColor(Color.blue);
-		    g.drawOval(rutaLong.get(0).getX()-5, rutaLong.get(0).getY()-5, 10, 10);
-			g.setColor(Color.yellow);
-			for (int i = 0; i < rutaLong.size()-1; i++) {
-				g.drawLine(rutaLong.get(i).getX(), rutaLong.get(i).getY(), rutaLong.get(i + 1).getX(),
-						rutaLong.get(i + 1).getY());
-				g.drawLine(rutaLong.get(i).getX()+1, rutaLong.get(i).getY(), rutaLong.get(i + 1).getX()+1,
-						rutaLong.get(i + 1).getY());
-				try {
-					Thread.sleep(3000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+			if (!rutaLong.isEmpty()) {
+				g.setColor(Color.blue);
+				g.drawOval(rutaLong.get(0).getX() - 5, rutaLong.get(0).getY() - 5, 10, 10);
+				g.setColor(Color.yellow);
+				for (int i = 0; i < rutaLong.size() - 1; i++) {
+					g.drawLine(rutaLong.get(i).getX(), rutaLong.get(i).getY(), rutaLong.get(i + 1).getX(),
+							rutaLong.get(i + 1).getY());
+					g.drawLine(rutaLong.get(i).getX() + 1, rutaLong.get(i).getY(), rutaLong.get(i + 1).getX() + 1,
+							rutaLong.get(i + 1).getY());
+					try {
+						Thread.sleep(500);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			}
+			//ejecutando = false;
+			jButton1.setText("Reiniciar");
+			jButton1.setEnabled(true);
 		}
 
 	}
