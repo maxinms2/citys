@@ -382,8 +382,14 @@ public class Vista extends javax.swing.JFrame {
 
 	public void paint(Graphics g) {
 		super.paint(g);
-
-		int width = 10;
+		g.setColor(Color.red);
+		g.drawLine(1100, 360, 1200,360);
+		g.drawLine(1100, 360+1, 1200,360+1);
+		g.setColor(Color.yellow);
+		g.drawLine(1100, 530, 1200,530);
+		g.drawLine(1100, 530+1, 1200,530+1);
+		//g.drawLine(1100, 360+1, 1200,360+1);
+		
 		if (ejecutando) {
 			if (!rutaShort.isEmpty()) {
 				g.setColor(Color.blue);
