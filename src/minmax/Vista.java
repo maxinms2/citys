@@ -10,6 +10,8 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Admin
@@ -401,7 +403,7 @@ public class Vista extends javax.swing.JFrame {
 					g.drawLine(rutaShort.get(i).getX() + 1, rutaShort.get(i).getY(), rutaShort.get(i + 1).getX() + 1,
 							rutaShort.get(i + 1).getY());
 					try {
-						Thread.sleep(500);
+						Thread.sleep(1500);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -418,7 +420,7 @@ public class Vista extends javax.swing.JFrame {
 					g.drawLine(rutaLong.get(i).getX() + 1, rutaLong.get(i).getY(), rutaLong.get(i + 1).getX() + 1,
 							rutaLong.get(i + 1).getY());
 					try {
-						Thread.sleep(500);
+						Thread.sleep(1500);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -428,6 +430,8 @@ public class Vista extends javax.swing.JFrame {
 			//ejecutando = false;
 			jButton1.setText("Reiniciar");
 			jButton1.setEnabled(true);
+			JOptionPane.showMessageDialog(null, "Rutas recorridas",
+	                "", JOptionPane.INFORMATION_MESSAGE);
 		}
 
 	}
