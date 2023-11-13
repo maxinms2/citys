@@ -104,7 +104,7 @@ public class Vista extends javax.swing.JFrame {
 		jButton1.setText("Calcular ruta y km recorridos");
 		jButton1.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jButton1ActionPerformed(evt);
+				//jButton1ActionPerformed(evt);
 				if (!ejecutando) {
 					ejecutando = true;
 					jButton1.setEnabled(false);
@@ -127,7 +127,6 @@ public class Vista extends javax.swing.JFrame {
 						rutaLong.add(mainRut.getGraph().getCity(city));
 					}
 					repaint();
-					// ejecutando=true;
 
 				}else {
 					jTextField2.setText("");
