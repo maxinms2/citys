@@ -21,7 +21,7 @@ public class Vista extends javax.swing.JFrame {
 	 * Creates new form Vista
 	 */
 	List<City> rutaShort = new ArrayList<>();
-
+	List<City> rutaLong = new ArrayList<>();
 	public Vista() {
 		initComponents();
 	}
@@ -109,6 +109,9 @@ public class Vista extends javax.swing.JFrame {
 				jTextField4.setText("" + mainRut.getLongestDistance());
 				for (String city : mainRut.getShortestPath()) {
 					rutaShort.add(mainRut.getGraph().getCity(city));
+				}
+				for (String city : mainRut.getLongestPath()) {
+					rutaLong.add(mainRut.getGraph().getCity(city));
 				}
 				repaint();
 			}
@@ -365,9 +368,6 @@ public class Vista extends javax.swing.JFrame {
 		if (!rutaShort.isEmpty()) {
 		    g.setColor(Color.blue);
 		    g.drawOval(rutaShort.get(0).getX()-5, rutaShort.get(0).getY()-5, 10, 10);
-		    /*g.drawOval(rutaShort.get(0).getX()-5, rutaShort.get(0).getY()-5, 8, 8);
-		    g.drawOval(rutaShort.get(0).getX()-5, rutaShort.get(0).getY()-5, 5, 5);
-		    g.drawOval(rutaShort.get(0).getX()-5, rutaShort.get(0).getY()-5, 2, 2);*/
 			g.setColor(Color.red);
 			for (int i = 0; i < rutaShort.size()-1; i++) {
 				g.drawLine(rutaShort.get(i).getX(), rutaShort.get(i).getY(), rutaShort.get(i + 1).getX(),
@@ -375,7 +375,24 @@ public class Vista extends javax.swing.JFrame {
 				g.drawLine(rutaShort.get(i).getX()+1, rutaShort.get(i).getY(), rutaShort.get(i + 1).getX()+1,
 						rutaShort.get(i + 1).getY());
 				try {
-					Thread.sleep(3);
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		if (!rutaLong.isEmpty()) {
+		    g.setColor(Color.blue);
+		    g.drawOval(rutaLong.get(0).getX()-5, rutaLong.get(0).getY()-5, 10, 10);
+			g.setColor(Color.yellow);
+			for (int i = 0; i < rutaLong.size()-1; i++) {
+				g.drawLine(rutaLong.get(i).getX(), rutaLong.get(i).getY(), rutaLong.get(i + 1).getX(),
+						rutaLong.get(i + 1).getY());
+				g.drawLine(rutaLong.get(i).getX()+1, rutaLong.get(i).getY(), rutaLong.get(i + 1).getX()+1,
+						rutaLong.get(i + 1).getY());
+				try {
+					Thread.sleep(3000);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
